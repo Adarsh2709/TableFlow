@@ -12,11 +12,12 @@
 - [x] Create App Entry (`app.js`, `server.js`)
 - [x] Create Seeders (`seed.js`, `unseed.js`)
 - [x] Create Docs & Postman (`README.md`, `postman collection`, `.env.example`)
-- [ ] Frontend: Initialize Next.js 15 project (`client/`)
-- [ ] Frontend: Install UI libraries (shadcn/ui, framer-motion, lucide-react)
-- [ ] Frontend: Install State Management (TanStack Query, Axios, Zustand)
-- [ ] Frontend: Setup API Client with Axios interceptors
-- [ ] Frontend: Create Auth Pages (Login, Register)
-- [ ] Frontend: Create Protected Routes Wrapper
-- [ ] Frontend: Create Customer Dashboard & Booking Flow
-- [ ] Frontend: Create Admin Dashboard & Tables
+- [x] Frontend: Initialize Next.js 15 project (`client/`)
+- [x] Frontend: Install UI libraries (shadcn/ui, framer-motion, lucide-react)
+- [x] Frontend: Install State Management (TanStack Query, Axios, Zustand)
+- [x] Frontend: Setup API Client with Axios interceptors
+- [x] Frontend: Create Auth Pages (Login, Register)
+- [x] Frontend: Create Protected Routes Wrapper
+- [x] Frontend: Create Customer Dashboard & Booking Flow
+- [x] Frontend: Create Admin Dashboard & Tables
+- [x] Git: Push properly to branching architecture (feature/backend-core, feature/frontend-setup)
