@@ -1,0 +1,22 @@
+- [x] Initialize project and install dependencies
+- [x] Create Configs (`env.js`, `db.js`, `swagger.js`)
+- [x] Create Constants (`roles.js`, `reservationStatus.js`, `timeSlots.js`)
+- [x] Create Utils (`logger.js`, `ApiResponse.js`, `ApiError.js`, `catchAsync.js`, `jwt.js`)
+- [x] Create Models (`User.js`, `RestaurantTable.js`, `Reservation.js`)
+- [x] Create Repositories (`user.repository.js`, `table.repository.js`, `reservation.repository.js`)
+- [x] Create Services (`allocation.service.js`, `reservation.service.js`, `table.service.js`, `auth.service.js`)
+- [x] Create Middlewares (`auth.middleware.js`, `error.middleware.js`, `validate.middleware.js`)
+- [x] Create Validators (`auth.validator.js`, `reservation.validator.js`, `table.validator.js`)
+- [x] Create Controllers (`auth.controller.js`, `reservation.controller.js`, `admin.controller.js`, `health.controller.js`)
+- [x] Create Routes (`auth.routes.js`, `reservation.routes.js`, `admin.routes.js`, `health.routes.js`, `index.js`)
+- [x] Create App Entry (`app.js`, `server.js`)
+- [x] Create Seeders (`seed.js`, `unseed.js`)
+- [x] Create Docs & Postman (`README.md`, `postman collection`, `.env.example`)
+- [ ] Frontend: Initialize Next.js 15 project (`client/`)
+- [ ] Frontend: Install UI libraries (shadcn/ui, framer-motion, lucide-react)
+- [ ] Frontend: Install State Management (TanStack Query, Axios, Zustand)
+- [ ] Frontend: Setup API Client with Axios interceptors
+- [ ] Frontend: Create Auth Pages (Login, Register)
+- [ ] Frontend: Create Protected Routes Wrapper
+- [ ] Frontend: Create Customer Dashboard & Booking Flow
+- [ ] Frontend: Create Admin Dashboard & Tables
