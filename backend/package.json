@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/src/server.js",
-    "dev": "nodemon server/src/server.js",
-    "seed": "node server/src/seed/seed.js",
-    "unseed": "node server/src/seed/unseed.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seed/seed.js",
+    "unseed": "node src/seed/unseed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
