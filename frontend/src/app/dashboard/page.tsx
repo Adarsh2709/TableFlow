@@ -17,6 +17,9 @@ export default function DashboardPage() {
   const [reservations, setReservations] = useState<any[]>([]);
   const [loadingReservations, setLoadingReservations] = useState(true);
 
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   useEffect(() => {
     if (isAuthenticated) {
