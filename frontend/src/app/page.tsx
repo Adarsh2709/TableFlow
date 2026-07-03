@@ -20,7 +20,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <main ref={containerRef} className="flex min-h-screen flex-col bg-background">
+    <main ref={containerRef} className="flex min-h-screen flex-col bg-[#110e0c]">
       {/* Elegant Header Navbar */}
       <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 border-b border-white/10 bg-gradient-to-b from-black/80 to-transparent">
         <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export default function Home() {
 
           <SlideUp delay={0.2}>
             <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-white tracking-widest uppercase mb-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] font-bold">
-              COOK WITH LOVE
+              TABLEFLOW
             </h1>
           </SlideUp>
 
@@ -83,15 +83,17 @@ export default function Home() {
           </FadeIn>
 
           <SlideUp delay={0.8} className="flex flex-col sm:flex-row gap-6 mt-4">
-             <div className="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer group animate-bounce shadow-xl">
-               <ArrowRight className="w-6 h-6 text-white transform rotate-90 group-hover:translate-y-1 transition-transform" />
-             </div>
+             <Link href="#experience">
+               <div className="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer group animate-bounce shadow-xl">
+                 <ArrowRight className="w-6 h-6 text-white transform rotate-90 group-hover:translate-y-1 transition-transform" />
+               </div>
+             </Link>
           </SlideUp>
         </div>
       </section>
 
       {/* Featured Experience */}
-      <section className="py-32 relative z-20">
+      <section id="experience" className="py-32 relative z-20 bg-gradient-to-b from-[#1a1410] to-[#110e0c]">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <SlideUp>
@@ -143,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* Reservation Journey (Glass Cards) */}
-      <section className="py-32 relative bg-neutral-950">
+      <section className="py-32 relative bg-[#0a0807]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center opacity-10" />
         <div className="absolute inset-0 bg-background/90" />
         
@@ -190,7 +192,7 @@ export default function Home() {
       </section>
       
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12 relative z-20 bg-background">
+      <footer className="border-t border-white/5 py-12 relative z-20 bg-[#0a0807]">
         <div className="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <h1 className="font-heading text-xl tracking-widest text-foreground font-semibold">TABLEFLOW</h1>
