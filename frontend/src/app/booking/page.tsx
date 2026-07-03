@@ -31,13 +31,13 @@ export default function BookingPage() {
   }, [checkAuth]);
 
   if (authLoading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>;
+    return <div className="min-h-screen bg-transparent flex items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>;
   }
 
   if (!isAuthenticated) {
     // If not authenticated, prompt them to login
     return (
-      <div className="min-h-screen bg-background pt-32 pb-24 flex items-center justify-center">
+      <div className="min-h-screen bg-transparent pt-32 pb-24 flex items-center justify-center">
         <GlassCard className="max-w-md text-center p-10">
           <h2 className="font-heading text-3xl mb-4">Authentication Required</h2>
           <p className="text-foreground/70 mb-8 font-light">Please log in to your account to reserve a table at TableFlow.</p>

@@ -34,7 +34,7 @@ export default function Home() {
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.6, 0.9]);
 
   return (
-    <main className="flex min-h-screen flex-col bg-background selection:bg-primary/30" ref={containerRef}>
+    <main className="flex min-h-screen flex-col bg-transparent selection:bg-primary/30" ref={containerRef}>
       
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
