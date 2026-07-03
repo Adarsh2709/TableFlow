@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import catchAsync from '../utils/catchAsync.js';
 import ApiResponse from '../utils/ApiResponse.js';
-import AppError from '../utils/AppError.js';
+import ApiError from '../utils/ApiError.js';
 
 export const getAllCustomers = catchAsync(async (req, res) => {
   const customers = await User.find({ role: 'customer' })
@@ -16,7 +16,7 @@ export const getCustomerById = catchAsync(async (req, res) => {
     .select('-password');
     
   if (!customer) {
-    throw new AppError('Customer not found', 404);
+    throw new ApiError(404, 'Customer not found');
   }
   
   res.status(200).json(new ApiResponse(200, { customer }, 'Customer retrieved successfully'));
