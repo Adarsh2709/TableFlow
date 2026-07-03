@@ -55,11 +55,7 @@ export default function RegisterPage() {
       
       login(token, user);
       toast.success('Registration successful. Welcome!');
-      if (user.role === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/dashboard');
-      }
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
@@ -79,12 +75,7 @@ export default function RegisterPage() {
       
       login(token, user);
       toast.success('Google Authentication Successful');
-      
-      if (user.role === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/dashboard');
-      }
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Google Auth failed. Please try again.');
     } finally {

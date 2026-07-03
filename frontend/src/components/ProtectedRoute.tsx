@@ -25,8 +25,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
       if (!isAuthenticated) {
         router.push('/auth/login');
       } else if (allowedRoles && user && !allowedRoles.includes(user.role as any)) {
-        // User is logged in but doesn't have the right role
-        router.push(user.role === 'admin' ? '/admin' : '/dashboard');
+        router.push('/dashboard');
       }
     }
   }, [isMounted, isLoading, isAuthenticated, user, allowedRoles, router]);

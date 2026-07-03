@@ -41,12 +41,7 @@ export default function LoginPage() {
       
       login(token, user);
       toast.success('Welcome back to TableFlow');
-      
-      if (user.role === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/dashboard');
-      }
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed. Please try again.');
     } finally {
@@ -62,12 +57,7 @@ export default function LoginPage() {
       
       login(token, user);
       toast.success('Google Login Successful');
-      
-      if (user.role === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/dashboard');
-      }
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Google Login failed. Please try again.');
     } finally {

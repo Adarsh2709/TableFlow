@@ -2,24 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Menu', href: '/#menu' },
-  { name: 'Experience', href: '/#experience' },
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Admin', href: '/admin' },
-];
+import { useAuthStore } from '@/store/authStore';
+import { toast } from 'sonner';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  
+  const { user, isAuthenticated, logout } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +26,43 @@ export function Navbar() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    toast.success('Logged out successfully');
+    router.push('/');
+    setMobileMenuOpen(false);
+  };
+
+  let navLinks: { name: string, href: string }[] = [];
+
+  if (!isAuthenticated) {
+    navLinks = [
+      { name: 'Home', href: '/' },
+      { name: 'About', href: '/#about' },
+      { name: 'Contact', href: '/#contact' },
+      { name: 'Book Table', href: '/booking' },
+      { name: 'Login', href: '/auth/login' },
+      { name: 'Register', href: '/auth/register' }
+    ];
+  } else if (user?.role === 'customer') {
+    navLinks = [
+      { name: 'Home', href: '/' },
+      { name: 'Dashboard', href: '/dashboard' },
+      { name: 'Book Table', href: '/booking' },
+      { name: 'My Reservations', href: '/dashboard#reservations' },
+      { name: 'Profile', href: '/dashboard#profile' }
+    ];
+  } else if (user?.role === 'admin') {
+    navLinks = [
+      { name: 'Home', href: '/' },
+      { name: 'Dashboard', href: '/dashboard' },
+      { name: 'Reservations', href: '/dashboard#reservations' },
+      { name: 'Tables', href: '/dashboard#tables' },
+      { name: 'Analytics', href: '/dashboard#analytics' },
+      { name: 'Profile', href: '/dashboard#profile' }
+    ];
+  }
 
   return (
     <motion.header
@@ -49,7 +83,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-10">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -57,7 +91,7 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  'text-sm tracking-wide uppercase transition-colors hover:text-primary relative group',
+                  'text-xs lg:text-sm tracking-wide uppercase transition-colors hover:text-primary relative group',
                   isActive ? 'text-primary' : 'text-foreground/80'
                 )}
               >
@@ -69,16 +103,19 @@ export function Navbar() {
               </Link>
             );
           })}
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className="text-xs lg:text-sm tracking-wide uppercase transition-colors text-foreground/80 hover:text-primary relative group"
+            >
+              Logout
+              <span className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-primary scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100" />
+            </button>
+          )}
         </nav>
 
         {/* CTA & Mobile Toggle */}
         <div className="flex items-center gap-4">
-          <Link href="/booking" className="hidden md:block">
-            <Button variant="default" className="uppercase tracking-widest text-xs">
-              Book a Table
-            </Button>
-          </Link>
-
           <button
             className="md:hidden relative z-50 p-2 text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -93,23 +130,26 @@ export function Navbar() {
         initial={false}
         animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: '-100%', pointerEvents: 'none' }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className="fixed inset-0 bg-background/95 backdrop-blur-3xl z-40 flex flex-col items-center justify-center gap-8 md:hidden"
+        className="fixed inset-0 bg-background/95 backdrop-blur-3xl z-40 flex flex-col items-center justify-center gap-8 md:hidden overflow-y-auto pt-20 pb-10"
       >
         {navLinks.map((link) => (
           <Link
             key={link.name}
             href={link.href}
             onClick={() => setMobileMenuOpen(false)}
-            className="font-heading text-4xl hover:text-primary transition-colors"
+            className="font-heading text-3xl hover:text-primary transition-colors"
           >
             {link.name}
           </Link>
         ))}
-        <Link href="/booking" onClick={() => setMobileMenuOpen(false)}>
-          <Button size="lg" className="mt-8 text-lg px-12">
-            Book a Table
-          </Button>
-        </Link>
+        {isAuthenticated && (
+          <button
+            onClick={handleLogout}
+            className="font-heading text-3xl hover:text-primary transition-colors mt-4"
+          >
+            Logout
+          </button>
+        )}
       </motion.div>
     </motion.header>
   );
