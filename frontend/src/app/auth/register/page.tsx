@@ -13,12 +13,14 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Button } from '@/components/ui/button';
+import { GoogleLogin } from '@react-oauth/google';
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Invalid email address' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
-  confirmPassword: z.string()
+  confirmPassword: z.string(),
+  role: z.enum(['customer', 'admin']).default('customer')
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -31,9 +33,14 @@ export default function RegisterPage() {
   const { login } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>({
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      role: 'customer'
+    }
   });
+
+  const selectedRole = watch('role');
 
   const onSubmit = async (data: RegisterFormValues) => {
     setIsLoading(true);
@@ -41,15 +48,45 @@ export default function RegisterPage() {
       const res = await api.post('/auth/register', {
         name: data.name,
         email: data.email,
-        password: data.password
+        password: data.password,
+        role: data.role
       });
       const { token, user } = res.data.data;
       
       login(token, user);
       toast.success('Registration successful. Welcome!');
-      router.push('/dashboard');
+      if (user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    setIsLoading(true);
+    try {
+      // Pass the selected role so Google Auth creates the right account type
+      const res = await api.post('/auth/google', { 
+        credential: credentialResponse.credential,
+        role: selectedRole 
+      });
+      const { token, user } = res.data.data;
+      
+      login(token, user);
+      toast.success('Google Authentication Successful');
+      
+      if (user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Google Auth failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -71,6 +108,28 @@ export default function RegisterPage() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              
+              {/* Role Toggle */}
+              <input type="hidden" {...register('role')} />
+              <div className="flex gap-4 mb-2">
+                <button
+                  type="button"
+                  onClick={() => setValue('role', 'customer')}
+                  disabled={isLoading}
+                  className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-300 ${selectedRole === 'customer' ? 'border-primary bg-primary/20 text-primary shadow-[0_0_15px_rgba(198,156,109,0.2)]' : 'border-white/10 bg-black/20 text-foreground/50 hover:bg-white/5'}`}
+                >
+                  Dining Guest
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setValue('role', 'admin')}
+                  disabled={isLoading}
+                  className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-300 ${selectedRole === 'admin' ? 'border-primary bg-primary/20 text-primary shadow-[0_0_15px_rgba(198,156,109,0.2)]' : 'border-white/10 bg-black/20 text-foreground/50 hover:bg-white/5'}`}
+                >
+                  Administrator
+                </button>
+              </div>
+
               <div>
                 <label className="text-xs uppercase tracking-widest text-foreground/70 mb-2 block">Full Name</label>
                 <input
@@ -123,6 +182,25 @@ export default function RegisterPage() {
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Create Account'}
               </Button>
             </form>
+
+            <div className="mt-6 flex items-center justify-between">
+              <span className="w-1/5 border-b border-white/10"></span>
+              <span className="text-xs text-foreground/50 uppercase">Or continue with</span>
+              <span className="w-1/5 border-b border-white/10"></span>
+            </div>
+
+            <div className="mt-6 flex justify-center w-full">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => {
+                  toast.error('Google Authentication Failed');
+                }}
+                theme="filled_black"
+                shape="rectangular"
+                width="100%"
+                text="signup_with"
+              />
+            </div>
 
             <div className="mt-8 text-center text-sm text-foreground/60">
               Already a member?{' '}

@@ -13,6 +13,7 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Button } from '@/components/ui/button';
+import { GoogleLogin } from '@react-oauth/google';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -30,10 +31,12 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
+  const [selectedRole, setSelectedRole] = useState<'customer' | 'admin'>('customer');
+
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      const res = await api.post('/auth/login', data);
+      const res = await api.post('/auth/login', { ...data, role: selectedRole });
       const { token, user } = res.data.data;
       
       login(token, user);
@@ -46,6 +49,27 @@ export default function LoginPage() {
       }
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    setIsLoading(true);
+    try {
+      const res = await api.post('/auth/google', { credential: credentialResponse.credential, role: selectedRole });
+      const { token, user } = res.data.data;
+      
+      login(token, user);
+      toast.success('Google Login Successful');
+      
+      if (user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Google Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -67,6 +91,24 @@ export default function LoginPage() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* Role Toggle */}
+              <div className="flex gap-4 mb-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole('customer')}
+                  className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-300 ${selectedRole === 'customer' ? 'border-primary bg-primary/20 text-primary shadow-[0_0_15px_rgba(198,156,109,0.2)]' : 'border-white/10 bg-black/20 text-foreground/50 hover:bg-white/5'}`}
+                >
+                  Dining Guest
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole('admin')}
+                  className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-300 ${selectedRole === 'admin' ? 'border-primary bg-primary/20 text-primary shadow-[0_0_15px_rgba(198,156,109,0.2)]' : 'border-white/10 bg-black/20 text-foreground/50 hover:bg-white/5'}`}
+                >
+                  Administrator
+                </button>
+              </div>
+
               <div>
                 <label className="text-xs uppercase tracking-widest text-foreground/70 mb-2 block">Email</label>
                 <input
@@ -99,6 +141,24 @@ export default function LoginPage() {
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In'}
               </Button>
             </form>
+
+            <div className="mt-6 flex items-center justify-between">
+              <span className="w-1/5 border-b border-white/10"></span>
+              <span className="text-xs text-foreground/50 uppercase">Or continue with</span>
+              <span className="w-1/5 border-b border-white/10"></span>
+            </div>
+
+            <div className="mt-6 flex justify-center w-full">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => {
+                  toast.error('Google Authentication Failed');
+                }}
+                theme="filled_black"
+                shape="rectangular"
+                width="100%"
+              />
+            </div>
 
             <div className="mt-8 text-center text-sm text-foreground/60">
               Not a member yet?{' '}

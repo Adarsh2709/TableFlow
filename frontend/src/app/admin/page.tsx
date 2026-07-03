@@ -22,9 +22,6 @@ export default function AdminDashboard() {
   const [trends, setTrends] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
 
   useEffect(() => {
     if (isAuthenticated) {

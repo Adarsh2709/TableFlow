@@ -6,7 +6,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ProtectedRoute allowedRoles={['ADMIN']}>
+    <ProtectedRoute allowedRoles={['admin']}>
       <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
         {/* We can add an Admin Navigation Header here later */}
         {children}

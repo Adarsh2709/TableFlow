@@ -8,6 +8,7 @@ const startServer = async () => {
 
   const server = app.listen(config.port, () => {
     logger.info(`Server running in ${config.nodeEnv} mode on port ${config.port}`);
+    console.log(`Backend server successfully started on port ${config.port}`);
     logger.info(`Swagger docs available at http://localhost:${config.port}/api/docs`);
   });
 

@@ -1,0 +1,9 @@
+User validation failed: role: `customer` is not a valid enum value for path `role`.
+ValidationError: User validation failed: role: `customer` is not a valid enum value for path `role`.
+    at model.validate (D:\TableFlow\backend\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (D:\TableFlow\backend\node_modules\mongoose\lib\model.js:399:7)
+    at async maybeTracedSave (D:\TableFlow\backend\node_modules\mongoose\lib\model.js:675:7)
+    at async createUser (file:///D:/TableFlow/backend/src/repositories/user.repository.js:6:10)
+    at async googleLogin (file:///D:/TableFlow/backend/src/services/auth.service.js:63:14)
+    at async file:///D:/TableFlow/backend/src/controllers/auth.controller.js:26:27

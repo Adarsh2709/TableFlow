@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, logout, getMe } from '../controllers/auth.controller.js';
+import { register, login, logout, getMe, googleAuth } from '../controllers/auth.controller.js';
 import { authenticate } from '../middleware/auth.middleware.js';
 import { registerValidator, loginValidator } from '../validators/auth.validator.js';
 
@@ -66,6 +66,8 @@ router.post('/register', registerValidator, register);
  *         description: Login successful
  */
 router.post('/login', loginValidator, login);
+
+router.post('/google', googleAuth);
 
 router.post('/logout', authenticate, logout);
 

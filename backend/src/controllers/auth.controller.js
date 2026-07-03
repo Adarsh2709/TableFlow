@@ -1,10 +1,21 @@
-import { registerUser, loginUser, getCurrentUser } from '../services/auth.service.js';
+import { registerUser, loginUser, getCurrentUser, googleLogin } from '../services/auth.service.js';
 import catchAsync from '../utils/catchAsync.js';
 import ApiResponse from '../utils/ApiResponse.js';
 
 export const register = catchAsync(async (req, res) => {
   const user = await registerUser(req.body);
-  res.status(201).json(new ApiResponse(201, { user }, 'User registered successfully'));
+  
+  // Generate token using the utility
+  const { generateToken } = await import('../utils/jwt.js');
+  const token = generateToken(user._id, user.role);
+  
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  });
+
+  res.status(201).json(new ApiResponse(201, { user, token }, 'User registered successfully'));
 });
 
 export const login = catchAsync(async (req, res) => {
@@ -19,6 +30,19 @@ export const login = catchAsync(async (req, res) => {
   });
 
   res.status(200).json(new ApiResponse(200, { user, token }, 'Login successful'));
+});
+
+export const googleAuth = catchAsync(async (req, res) => {
+  const { credential, role } = req.body;
+  const { user, token } = await googleLogin(credential, role);
+
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  });
+
+  res.status(200).json(new ApiResponse(200, { user, token }, 'Google login successful'));
 });
 
 export const logout = catchAsync(async (req, res) => {

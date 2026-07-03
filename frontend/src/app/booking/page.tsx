@@ -25,9 +25,6 @@ export default function BookingPage() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
 
   if (authLoading) {
     return <div className="min-h-screen bg-background flex items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>;
