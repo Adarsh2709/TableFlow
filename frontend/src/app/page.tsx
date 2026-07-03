@@ -151,11 +151,9 @@ export default function Home() {
       </section>
 
       {/* Reservation Journey (Custom Cards matching user design) */}
-      <section className="py-32 relative bg-[#0a0705] overflow-hidden">
+      <section className="py-32 relative bg-transparent overflow-hidden">
         {/* Background Layout matching the image */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-20"></div>
-          
+        <div className="absolute inset-0 z-0 pointer-events-none">
           {/* Copper texture curve on the right */}
           <div className="absolute -right-[15%] top-[10%] w-[50%] h-[120%] rounded-[100%] bg-gradient-to-br from-[#4a2e1b] to-[#26150a] shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] border-l border-white/5">
              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay rounded-[100%]"></div>
