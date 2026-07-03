@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* Featured Experience */}
-      <section id="experience" className="py-32 relative z-20 bg-gradient-to-b from-[#1a1410] to-[#110e0c]">
+      <section id="experience" className="py-32 relative z-20 bg-transparent">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <SlideUp>
