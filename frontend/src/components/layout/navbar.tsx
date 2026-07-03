@@ -32,19 +32,19 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
         isScrolled || !isHome
-          ? 'bg-[#140D09]/80 backdrop-blur-xl border-b border-primary/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] py-4'
-          : 'bg-gradient-to-b from-black/80 to-transparent border-b border-white/5 py-6'
+          ? 'bg-[#0f0a07]/90 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)] py-4'
+          : 'bg-transparent border-b border-transparent py-8'
       }`}
     >
       <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 border border-primary/50 flex items-center justify-center transition-transform duration-500 group-hover:rotate-45">
-            <span className="font-heading font-bold text-lg text-primary transition-transform duration-500 group-hover:-rotate-45">TF</span>
+          <div className={`border border-[#D4AF37]/50 flex items-center justify-center transition-all duration-700 ${isScrolled ? 'w-8 h-8' : 'w-10 h-10'} group-hover:rotate-45`}>
+            <span className={`font-heading font-bold text-[#D4AF37] transition-all duration-700 ${isScrolled ? 'text-sm' : 'text-lg'} group-hover:-rotate-45`}>TF</span>
           </div>
-          <span className="font-heading text-xl tracking-[0.2em] text-foreground hidden sm:block">TABLEFLOW</span>
+          <span className={`font-heading tracking-[0.2em] text-foreground hidden sm:block transition-all duration-700 ${isScrolled ? 'text-lg' : 'text-xl'}`}>TABLEFLOW</span>
         </Link>
 
         {/* Navigation Links */}
@@ -70,7 +70,11 @@ export function Navbar() {
           <Link href="/booking">
             <Button 
               variant="outline" 
-              className="hidden sm:flex border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-500 text-xs tracking-widest uppercase rounded-none h-10 px-6"
+              className={`hidden sm:flex transition-all duration-700 text-xs tracking-widest uppercase rounded-none px-6 ${
+                isScrolled 
+                  ? 'border-[#D4AF37]/80 text-[#D4AF37] bg-[#D4AF37]/10 h-10 shadow-[0_0_15px_rgba(212,175,55,0.2)]'
+                  : 'border-[#D4AF37]/40 text-white/90 bg-transparent h-12 hover:bg-[#D4AF37]/20 hover:border-[#D4AF37]'
+              }`}
             >
               Book Table
             </Button>

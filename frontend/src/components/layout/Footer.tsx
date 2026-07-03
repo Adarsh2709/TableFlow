@@ -17,17 +17,17 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex gap-10">
-            <div className="flex flex-col gap-4">
-              <h4 className="text-primary text-[10px] uppercase tracking-widest font-semibold">Company</h4>
-              <Link href="#" className="text-xs text-foreground/60 hover:text-primary transition-colors">About Us</Link>
-              <Link href="#" className="text-xs text-foreground/60 hover:text-primary transition-colors">Careers</Link>
-              <Link href="#" className="text-xs text-foreground/60 hover:text-primary transition-colors">Contact</Link>
+          <div className="flex gap-16 md:gap-32">
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[#D4AF37] text-sm uppercase tracking-wider font-bold">Company</h4>
+              <Link href="#" className="text-[15px] text-[#8ea5b8] hover:text-white transition-colors">About Us</Link>
+              <Link href="#" className="text-[15px] text-[#8ea5b8] hover:text-white transition-colors">Careers</Link>
+              <Link href="#" className="text-[15px] text-[#8ea5b8] hover:text-white transition-colors">Contact</Link>
             </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="text-primary text-[10px] uppercase tracking-widest font-semibold">Legal</h4>
-              <Link href="#" className="text-xs text-foreground/60 hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link href="#" className="text-xs text-foreground/60 hover:text-primary transition-colors">Terms of Service</Link>
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[#D4AF37] text-sm uppercase tracking-wider font-bold">Legal</h4>
+              <Link href="#" className="text-[15px] text-[#8ea5b8] hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="#" className="text-[15px] text-[#8ea5b8] hover:text-white transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>
