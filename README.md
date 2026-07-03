@@ -1,80 +1,169 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/utensils-crossed.svg" width="80" height="80" alt="TableFlow Logo">
-  <h1>TableFlow</h1>
-  <p><strong>A Next-Generation Restaurant Reservation & Table Allocation Platform</strong></p>
-  
-  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-  [![Node.js](https://img.shields.io/badge/Node.js-20-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
-  [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com/)
-  [![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-</div>
+# TableFlow – Smart Restaurant Reservation Platform
+
+TableFlow is a premium, production-grade SaaS application designed for luxury restaurants, fine dining establishments, and high-end hospitality venues. It provides an elegant, Apple-inspired user interface backed by a robust Node.js/MongoDB reservation engine with double-booking prevention.
+
+## Table of Contents
+- [Architecture](#architecture)
+- [Database Schema (ER Diagram)](#database-schema)
+- [Folder Structure](#folder-structure)
+- [Installation Guide](#installation-guide)
+- [Authentication Flow](#authentication-flow)
+- [Reservation Allocation Algorithm](#reservation-allocation-algorithm)
+- [Future Improvements & Known Limitations](#future-improvements--known-limitations)
 
 ---
 
-## 🚀 Overview
-TableFlow is a full-stack, enterprise-grade restaurant reservation platform built with a modern monorepo architecture. It elegantly solves the complex problem of dynamic table allocation by automatically pairing parties with the most optimal table sizes while guaranteeing zero double-bookings via atomic database transactions.
+## Architecture
 
-## ✨ Features
-- **Smart Allocation Engine:** Automatically assigns the smallest available table that fits the party size.
-- **Atomic Transactions:** Uses Mongoose sessions to prevent race conditions and double-bookings.
-- **Role-based Dashboards:** Separate workflows for `CUSTOMER` (booking) and `ADMIN` (management).
-- **Premium UI:** Built with shadcn/ui, Tailwind CSS, and Framer Motion for a flawless user experience.
-- **RESTful API:** Clean architecture pattern for the Node.js backend.
+TableFlow utilizes a decoupled Client-Server architecture following Clean Architecture principles on the backend.
 
-## 🏗️ Monorepo Architecture
-TableFlow is organized as a monorepo for developer velocity:
-- `/backend`: The Express + Node.js + MongoDB API.
-- `/frontend`: The Next.js 15 App Router client.
-
-## ⚙️ Quick Start
-
-### 1. Prerequisites
-- Node.js >= 18.0.0
-- MongoDB Atlas cluster URL
-
-### 2. Environment Variables
-Create a `.env` file in the `backend/` directory:
-```env
-PORT=5000
-MONGODB_URI=your_atlas_connection_string
-JWT_SECRET=supersecretkey_change_in_production
-JWT_EXPIRE=30d
-NODE_ENV=development
+```mermaid
+graph TD
+    Client[Next.js 15 App Router] -->|Axios REST API| API[Express API Gateway]
+    
+    subgraph Backend [Node.js + Express]
+        API --> AuthMiddleware[JWT Auth Middleware]
+        AuthMiddleware --> Controllers[Controllers]
+        Controllers --> Services[Services Layer]
+        Services --> Repositories[Repositories Layer]
+    end
+    
+    Repositories --> MongoDB[(MongoDB Transactional DB)]
+    
+    subgraph Features
+        Services --> ReservationEngine[Reservation Allocation]
+        Services --> Analytics[Aggregation Pipelines]
+    end
 ```
 
-### 3. Installation
-Install both frontend and backend dependencies using the root workspace command:
-```bash
-npm run install:all
+## Database Schema
+
+```mermaid
+erDiagram
+    User {
+        ObjectId _id PK
+        String name
+        String email
+        String password
+        String role "admin | customer"
+        Date createdAt
+        Date updatedAt
+    }
+    
+    RestaurantTable {
+        ObjectId _id PK
+        Number tableNumber
+        Number capacity
+        Boolean isActive
+    }
+    
+    Reservation {
+        ObjectId _id PK
+        ObjectId customer FK
+        ObjectId table FK
+        String reservationDate "YYYY-MM-DD"
+        String timeSlot "HH:MM"
+        Number guests
+        String status "PENDING | CONFIRMED | COMPLETED | CANCELLED"
+        Date createdAt
+        Date updatedAt
+    }
+
+    User ||--o{ Reservation : "places"
+    RestaurantTable ||--o{ Reservation : "hosts"
 ```
 
-### 4. Database Seeding (Optional)
-To populate your database with 10 tables and an Admin user:
-```bash
-cd backend
-npm run seed
-cd ..
+## Folder Structure
+
+```text
+TableFlow/
+├── backend/
+│   ├── src/
+│   │   ├── config/          # DB and environment configuration
+│   │   ├── constants/       # Enums and fixed values
+│   │   ├── controllers/     # Request/Response parsing
+│   │   ├── middleware/      # Auth and Error handling
+│   │   ├── models/          # Mongoose Schemas
+│   │   ├── repositories/    # Database queries
+│   │   ├── routes/          # API route definitions
+│   │   ├── seed/            # Database initialization scripts
+│   │   ├── services/        # Business logic and algorithms
+│   │   ├── utils/           # Helper functions
+│   │   ├── validators/      # Express-validator schemas
+│   │   ├── app.js           # Express app setup
+│   │   └── server.js        # Server entry point
+│   ├── package.json
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   │   ├── app/             # Next.js App Router pages
+│   │   ├── components/      # Reusable React components
+│   │   ├── lib/             # Axios client and utilities
+│   │   ├── store/           # Zustand global state
+│   ├── package.json
+│   ├── tailwind.config.ts   # Tailwind v4 configuration
+│   └── next.config.ts
+└── package.json             # Monorepo scripts
 ```
 
-### 5. Running the Application
-Start both the API and the Client simultaneously using `concurrently`:
-```bash
-npm run dev
-```
+## Installation Guide
 
-- **Frontend:** [http://localhost:3000](http://localhost:3000)
-- **Backend API Docs (Swagger):** [http://localhost:5000/api/docs](http://localhost:5000/api/docs)
+### Prerequisites
+- Node.js (v18+)
+- MongoDB Replica Set (Required for Transactions)
 
-## 🔐 Default Credentials
-If you ran the seed script, you can log in as Admin:
-- **Email:** admin@tableflow.com
-- **Password:** password123
+### Setup Instructions
 
-## 🛠️ Built With
-- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, Zustand, Axios.
-- **Backend:** Node.js, Express, MongoDB, Mongoose, JWT, express-validator, Swagger.
+1. **Install Dependencies**
+   ```bash
+   npm run install:all
+   ```
+
+2. **Environment Variables**
+   - Copy `backend/.env.example` to `backend/.env`
+   - Set `MONGO_URI` to a MongoDB Replica Set connection string.
+   - Set `JWT_SECRET`.
+
+3. **Seed Database**
+   ```bash
+   npm run seed
+   ```
+
+4. **Start Development Servers**
+   ```bash
+   npm run dev
+   ```
+
+The Frontend will be available at `http://localhost:3000` and the Backend API at `http://localhost:5000`.
 
 ---
-<div align="center">
-  <i>Designed for flawless dining experiences.</i>
-</div>
+
+## Authentication Flow
+
+TableFlow uses standard JWT (JSON Web Token) authentication:
+1. User submits credentials to `POST /api/v1/auth/login`.
+2. Backend validates via `bcrypt` and issues a signed JWT.
+3. Frontend stores the JWT in `localStorage` and injects it into all future Axios requests via a request interceptor.
+4. Any `401 Unauthorized` responses trigger a global interceptor that clears local storage and redirects the user to the login screen.
+
+---
+
+## Reservation Allocation Algorithm
+
+The reservation engine uses a deterministic algorithm protected by MongoDB Transactions to prevent double booking.
+
+1. **Transaction Start**: `mongoose.startSession()` begins a transaction.
+2. **Capacity Filtering**: Queries `RestaurantTable` to find tables where `capacity >= requested_guests`, sorted by capacity ascending.
+3. **Conflict Detection**: Queries `Reservation` for any active reservations (not cancelled/completed) matching the requested date and time slot.
+4. **Allocation**: Filters out conflicting tables and assigns the *smallest available table* to the new reservation to maximize restaurant efficiency.
+5. **Commit/Rollback**: If successful, commits the transaction. If no tables are available, aborts the transaction and returns a `409 Conflict`.
+
+---
+
+## Future Improvements & Known Limitations
+
+- **Stripe Integration**: Add a deposit requirement during booking to reduce no-shows.
+- **WebSocket/Socket.io**: Implement real-time dashboard updates for the admin to see bookings arrive live without refreshing.
+- **Email/SMS Notifications**: Hook into SendGrid or Twilio to send confirmation and reminder notifications.
+- **Limitation**: The current authentication relies on `localStorage` which is vulnerable to XSS. A future improvement would be migrating to `httpOnly` secure cookies.
+- **Limitation**: Time slots are fixed and hardcoded on the frontend. A future admin settings panel could make these dynamic.

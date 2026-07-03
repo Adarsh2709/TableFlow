@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter, Geist } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Providers from '@/components/Providers';
 import { cn } from "@/lib/utils";
+import { Navbar } from '@/components/layout/navbar';
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-heading' });
 
 export const metadata: Metadata = {
-  title: 'TableFlow - Smart Restaurant Reservation',
-  description: 'Book your perfect table seamlessly.',
+  title: 'TableFlow | Luxury Dining Experience',
+  description: 'A premium smart restaurant reservation platform.',
 };
 
 export default function RootLayout({
@@ -19,9 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className={`${inter.className} min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50`}>
+    <html lang="en" className={cn("dark", inter.variable, playfair.variable)}>
+      <body className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground font-sans antialiased overflow-x-hidden">
         <Providers>
+          <Navbar />
           {children}
         </Providers>
       </body>

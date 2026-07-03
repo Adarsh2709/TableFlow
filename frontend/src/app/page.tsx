@@ -1,79 +1,186 @@
+'use client';
+
+import Image from "next/image";
 import Link from "next/link";
+import { FadeIn, SlideUp, StaggerText } from "@/components/ui/motion-wrapper";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Utensils, Clock, CheckCircle } from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
+import { ArrowRight, Star, Clock, UtensilsCrossed, MapPin } from "lucide-react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useRef } from "react";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Navbar */}
-      <header className="px-6 lg:px-12 h-20 flex items-center justify-between border-b border-neutral-100 sticky top-0 bg-white/80 backdrop-blur-md z-50">
-        <div className="flex items-center gap-2">
-          <Utensils className="h-6 w-6 text-indigo-600" />
-          <span className="font-bold text-xl tracking-tight">TableFlow</span>
-        </div>
-        <nav className="flex gap-4">
-          <Link href="/login">
-            <Button variant="ghost" className="font-semibold">Log in</Button>
-          </Link>
-          <Link href="/register">
-            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">Sign up</Button>
-          </Link>
-        </nav>
-      </header>
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
 
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  return (
+    <main ref={containerRef} className="flex min-h-screen flex-col bg-background">
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center text-center px-4 py-20 lg:py-32 bg-gradient-to-b from-indigo-50/50 to-white">
-        <div className="max-w-3xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-800">
-            <span className="flex h-2 w-2 rounded-full bg-indigo-600 mr-2"></span>
-            Smart Table Allocation Algorithm
-          </div>
-          <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-neutral-900 leading-tight">
-            Book your perfect table <br className="hidden lg:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">without the wait.</span>
+      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+          <Image
+            src="/hero_bg.png"
+            alt="Luxury Restaurant Interior"
+            fill
+            className="object-cover scale-105"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-10" />
+        </motion.div>
+
+        <div className="container relative z-20 mx-auto px-6 lg:px-12 pt-32 text-center flex flex-col items-center">
+          <SlideUp duration={1}>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="h-[1px] w-12 bg-primary"></span>
+              <span className="text-primary uppercase tracking-[0.3em] text-sm font-medium">Fine Dining Reimagined</span>
+              <span className="h-[1px] w-12 bg-primary"></span>
+            </div>
+          </SlideUp>
+
+          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8">
+            <StaggerText text="Experience the Art of Culinary Perfection" delay={0.2} />
           </h1>
-          <p className="text-lg lg:text-xl text-neutral-600 max-w-2xl mx-auto">
-            Experience flawless dining. Our smart system instantly pairs you with the best available table, guaranteeing no double-bookings or conflicts.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <Link href="/login">
-              <Button size="lg" className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white rounded-full px-8 h-14 text-lg">
-                Book a Table Now <ArrowRight className="ml-2 h-5 w-5" />
+
+          <FadeIn delay={0.6}>
+            <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-12 font-light">
+              Immerse yourself in a world where flavor meets atmosphere. Book your table for an unforgettable evening.
+            </p>
+          </FadeIn>
+
+          <SlideUp delay={0.8} className="flex flex-col sm:flex-row gap-6">
+            <Link href="/booking">
+              <Button size="lg" className="gold-gradient text-background hover:scale-105 transition-transform duration-300">
+                Reserve a Table <ArrowRight className="ml-2 w-5 h-5 text-background" />
               </Button>
             </Link>
-            <Link href="/admin/dashboard">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 h-14 text-lg border-neutral-300">
-                Admin Portal
+            <Link href="#menu">
+              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/5">
+                Explore Menu
               </Button>
             </Link>
+          </SlideUp>
+        </div>
+      </section>
+
+      {/* Featured Experience */}
+      <section className="py-32 relative z-20">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <SlideUp>
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop"
+                  alt="Plated Dish"
+                  fill
+                  className="object-cover hover:scale-110 transition-transform duration-[2s] ease-out"
+                />
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+              </div>
+            </SlideUp>
+
+            <div className="flex flex-col">
+              <FadeIn>
+                <h2 className="text-primary text-sm uppercase tracking-[0.2em] mb-4">Our Signature</h2>
+              </FadeIn>
+              <SlideUp delay={0.2}>
+                <h3 className="font-heading text-4xl md:text-5xl mb-8 leading-snug">
+                  A Symphony of Tastes, Crafted with Passion.
+                </h3>
+              </SlideUp>
+              <FadeIn delay={0.3}>
+                <p className="text-foreground/70 mb-10 text-lg leading-relaxed font-light">
+                  Our executive chef curates seasonal menus that push the boundaries of modern gastronomy, while paying homage to classic techniques. Every ingredient is sourced with absolute care.
+                </p>
+              </FadeIn>
+
+              <div className="grid grid-cols-2 gap-8">
+                <SlideUp delay={0.4}>
+                  <div className="flex flex-col gap-3">
+                    <Star className="text-primary w-8 h-8" />
+                    <h4 className="font-heading text-xl">Michelin Quality</h4>
+                    <p className="text-sm text-foreground/60">Award-winning dining experience recognized globally.</p>
+                  </div>
+                </SlideUp>
+                <SlideUp delay={0.5}>
+                  <div className="flex flex-col gap-3">
+                    <Clock className="text-primary w-8 h-8" />
+                    <h4 className="font-heading text-xl">Atmospheric</h4>
+                    <p className="text-sm text-foreground/60">Warm, elegant, and perfectly lit for your evening.</p>
+                  </div>
+                </SlideUp>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Reservation Journey (Glass Cards) */}
+      <section className="py-32 relative bg-neutral-950">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center opacity-10" />
+        <div className="absolute inset-0 bg-background/90" />
         
-        {/* Features Snippet */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 max-w-5xl w-full">
-          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-neutral-100 transition-all hover:shadow-md">
-            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-4 text-blue-600">
-              <Clock className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Real-time Availability</h3>
-            <p className="text-neutral-500 text-sm">See exactly what time slots are open instantly. No refreshing needed.</p>
+        <div className="container relative z-10 mx-auto px-6 lg:px-12">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <FadeIn>
+              <h2 className="font-heading text-4xl md:text-5xl mb-6">Your Evening Awaits</h2>
+              <p className="text-foreground/70 text-lg font-light">Seamlessly manage your dining experience through our premium reservation platform.</p>
+            </FadeIn>
           </div>
-          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-neutral-100 transition-all hover:shadow-md">
-            <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-600">
-              <CheckCircle className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Atomic Booking</h3>
-            <p className="text-neutral-500 text-sm">Guaranteed conflict-free reservations backed by enterprise transactions.</p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-neutral-100 transition-all hover:shadow-md">
-            <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mb-4 text-purple-600">
-              <Utensils className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Optimal Allocation</h3>
-            <p className="text-neutral-500 text-sm">Smartly matches your party size to the most efficient table configuration.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <SlideUp delay={0.1}>
+              <GlassCard glow className="h-full flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <UtensilsCrossed className="w-8 h-8 text-primary" />
+                </div>
+                <h4 className="font-heading text-2xl mb-4">Select Your Experience</h4>
+                <p className="text-foreground/60 font-light text-sm">Choose from the main dining room, chef's table, or our private wine cellar.</p>
+              </GlassCard>
+            </SlideUp>
+            
+            <SlideUp delay={0.2}>
+              <GlassCard glow className="h-full flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <Clock className="w-8 h-8 text-primary" />
+                </div>
+                <h4 className="font-heading text-2xl mb-4">Choose Your Time</h4>
+                <p className="text-foreground/60 font-light text-sm">Real-time availability with our elegant, frictionless booking interface.</p>
+              </GlassCard>
+            </SlideUp>
+            
+            <SlideUp delay={0.3}>
+              <GlassCard glow className="h-full flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <Star className="w-8 h-8 text-primary" />
+                </div>
+                <h4 className="font-heading text-2xl mb-4">Enjoy the Moment</h4>
+                <p className="text-foreground/60 font-light text-sm">Arrive to a personalized greeting and let our staff handle the rest.</p>
+              </GlassCard>
+            </SlideUp>
           </div>
         </div>
-      </main>
-    </div>
+      </section>
+      
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-12 relative z-20 bg-background">
+        <div className="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            <h1 className="font-heading text-xl tracking-widest text-foreground font-semibold">TABLEFLOW</h1>
+            <p className="text-foreground/50 text-sm mt-2">© 2026 TableFlow Luxury Dining. All rights reserved.</p>
+          </div>
+          <div className="flex gap-8">
+            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Privacy</Link>
+            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Terms</Link>
+            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</Link>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }
