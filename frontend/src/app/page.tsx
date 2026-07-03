@@ -25,7 +25,7 @@ export default function Home() {
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <Image
-            src="/hero_bg.png"
+            src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop"
             alt="Luxury Restaurant Interior"
             fill
             className="object-cover scale-105"

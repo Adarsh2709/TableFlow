@@ -1,9 +1,12 @@
 import Reservation from '../models/Reservation.js';
 import RestaurantTable from '../models/RestaurantTable.js';
+import User from '../models/user.model.js';
 import { RESERVATION_STATUS } from '../constants/reservationStatus.js';
 
 export const getDashboardStats = async (date) => {
   const today = date || new Date().toISOString().split('T')[0];
+  
+  const totalCustomers = await User.countDocuments({ role: 'customer' });
 
   const pipeline = [
     {
@@ -51,7 +54,8 @@ export const getDashboardStats = async (date) => {
     cancelled: cancelledCount,
     completed: completedCount,
     estimatedRevenue,
-    totalGuests
+    totalGuests,
+    totalCustomers
   };
 };
 
