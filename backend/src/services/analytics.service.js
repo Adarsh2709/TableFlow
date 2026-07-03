@@ -1,6 +1,6 @@
 import Reservation from '../models/Reservation.js';
 import RestaurantTable from '../models/RestaurantTable.js';
-import User from '../models/user.model.js';
+import User from '../models/User.js';
 import { RESERVATION_STATUS } from '../constants/reservationStatus.js';
 
 export const getDashboardStats = async (date) => {

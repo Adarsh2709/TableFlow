@@ -1,4 +1,4 @@
-import User from '../models/user.model.js';
+import User from '../models/User.js';
 import catchAsync from '../utils/catchAsync.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import AppError from '../utils/AppError.js';
