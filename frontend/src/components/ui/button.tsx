@@ -8,15 +8,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/40",
+        default: "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black hover:opacity-90 shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] font-semibold tracking-wide",
         outline:
-          "border-white/10 bg-background/50 backdrop-blur-sm hover:bg-white/5 hover:text-foreground hover:border-white/20",
+          "border border-primary/40 bg-black/40 backdrop-blur-sm text-primary hover:bg-primary hover:text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-secondary/80 backdrop-blur-md text-secondary-foreground hover:bg-secondary border border-white/5",
         ghost:
-          "hover:bg-white/5 hover:text-foreground",
+          "hover:bg-primary/10 hover:text-primary transition-colors",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+          "bg-destructive/20 text-destructive hover:bg-destructive hover:text-white border border-destructive/30 hover:shadow-[0_0_20px_rgba(122,38,38,0.4)]",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

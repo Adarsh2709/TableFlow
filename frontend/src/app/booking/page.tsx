@@ -8,6 +8,7 @@ import { FadeIn, SlideUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Button } from '@/components/ui/button';
 import { Calendar as CalendarIcon, Check, Loader2 } from 'lucide-react';
+import { PageHero } from '@/components/ui/page-hero';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 
@@ -73,24 +74,15 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="min-h-screen relative bg-neutral-950">
-      {/* 40vh Hero Section */}
-      <div className="relative h-[40vh] w-full flex items-center justify-center">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
-        </div>
-        
-        <div className="relative z-10 text-center px-6">
-          <FadeIn>
-            <p className="text-primary uppercase tracking-widest text-xs mb-3 font-semibold drop-shadow-md">Reservation</p>
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-lg mb-4">Reserve Your Table</h1>
-            <p className="text-white/70 font-light max-w-md mx-auto">Join us for an unforgettable dining experience.</p>
-          </FadeIn>
-        </div>
-      </div>
+    <div className="w-full">
+      <PageHero 
+        title="Reserve Your Table"
+        subtitle="Join us for an unforgettable dining experience."
+        category="Reservation"
+        bgImage="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop"
+      />
 
-      <div className="container relative z-20 max-w-4xl mx-auto px-6 -mt-12 pb-24">
+      <div className="container relative z-20 max-w-4xl mx-auto px-6 -mt-16 pb-24">
 
         <SlideUp delay={0.2}>
           <GlassCard className="p-8 md:p-12 relative overflow-visible shadow-2xl shadow-primary/5">

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { FadeIn, SlideUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Users, Calendar as CalendarIcon, DollarSign, TrendingUp, Loader2, RefreshCw, LayoutGrid, List, UtensilsCrossed, Settings, UserCircle, Search, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { PageHero } from '@/components/ui/page-hero';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
@@ -91,39 +92,23 @@ export function AdminDashboard() {
   const hasData = overview && (overview.today > 0 || overview.upcoming > 0 || overview.completed > 0);
 
   return (
-    <div className="min-h-screen relative bg-neutral-950">
-      {/* 40vh Hero Section */}
-      <div className="relative h-[40vh] w-full flex flex-col justify-end pb-16">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
-        </div>
+    <div className="w-full">
+      <PageHero 
+        title="Executive Dashboard"
+        subtitle="Command Center for Restaurant Operations."
+        category="Operations"
+        bgImage="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop"
+      >
+        <button 
+          onClick={fetchAllData}
+          disabled={loading}
+          className="mx-auto flex items-center gap-2 text-sm text-white/90 hover:text-primary transition-colors bg-white/10 px-6 py-3 rounded-full border border-white/20 backdrop-blur-md"
+        >
+          <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Sync Data
+        </button>
+      </PageHero>
 
-        <div className="container relative z-10 mx-auto px-6 max-w-7xl">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div>
-                <p className="text-primary uppercase tracking-widest text-xs mb-3 font-semibold drop-shadow-md">Command Center</p>
-                <h1 className="font-heading text-4xl md:text-5xl text-white drop-shadow-lg">Executive Dashboard</h1>
-              </div>
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={fetchAllData}
-                  disabled={loading}
-                  className="flex items-center gap-2 text-sm text-white/90 hover:text-primary transition-colors bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md"
-                >
-                  <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Sync Data
-                </button>
-                <div className="w-12 h-12 rounded-full bg-primary/20 backdrop-blur-md border border-primary/50 flex items-center justify-center shadow-[0_0_15px_rgba(198,156,109,0.3)]">
-                  <span className="font-heading text-xl text-primary">{user?.name?.charAt(0).toUpperCase() || 'A'}</span>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </div>
-
-      <div className="container relative z-20 mx-auto px-6 max-w-7xl -mt-8 pb-20">
+      <div className="container relative z-20 mx-auto px-6 max-w-7xl -mt-16 pb-20">
 
         {/* Tab Navigation */}
         <FadeIn delay={0.1} className="mb-8 overflow-x-auto pb-2 scrollbar-hide">

@@ -6,6 +6,7 @@ import { FadeIn, SlideUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Award, Loader2, UtensilsCrossed, ArrowRight, User as UserIcon } from 'lucide-react';
+import { PageHero } from '@/components/ui/page-hero';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
@@ -58,38 +59,15 @@ export function CustomerDashboard() {
   const past = reservations.filter(r => r.status === 'CANCELLED' || r.status === 'COMPLETED');
 
   return (
-    <div className="min-h-screen relative bg-neutral-950">
-      {/* 40vh Hero Section */}
-      <div className="relative h-[40vh] w-full flex flex-col justify-end pb-16">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
-        </div>
+    <div className="w-full">
+      <PageHero 
+        title={`Welcome back, ${user?.name?.split(' ')[0] || 'Guest'}`}
+        subtitle="Your exclusive dining itinerary and membership details."
+        category="Member Lounge"
+        bgImage="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop"
+      />
 
-        <div className="container relative z-10 mx-auto px-6 max-w-6xl">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div>
-                <p className="text-primary uppercase tracking-widest text-xs mb-3 font-semibold drop-shadow-md">Member Lounge</p>
-                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-lg">
-                  Welcome back, <span className="text-primary italic">{user?.name?.split(' ')[0] || 'Guest'}</span>
-                </h1>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium tracking-wide uppercase text-white/90">Standard Member</p>
-                  <p className="text-xs text-white/60 tracking-widest">Since 2026</p>
-                </div>
-                <div className="w-14 h-14 rounded-full bg-primary/20 backdrop-blur-md border border-primary/50 flex items-center justify-center shadow-[0_0_20px_rgba(198,156,109,0.3)]">
-                  <UserIcon className="text-primary w-6 h-6" />
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </div>
-
-      <div className="container relative z-20 mx-auto px-6 max-w-6xl -mt-8 pb-20">
+      <div className="container relative z-20 mx-auto px-6 max-w-6xl -mt-16 pb-20">
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           

@@ -20,25 +20,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <main ref={containerRef} className="flex min-h-screen flex-col bg-[#110e0c]">
-      {/* Elegant Header Navbar */}
-      <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 border-b border-white/10 bg-gradient-to-b from-black/80 to-transparent">
-        <div className="flex items-center gap-2">
-          <div className="w-12 h-12 border border-white flex items-center justify-center">
-            <span className="font-heading font-bold text-xl text-white">TF</span>
-          </div>
-        </div>
-        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest text-white/80 uppercase">
-          <Link href="#menu" className="hover:text-primary transition-colors">Our Menu</Link>
-          <span className="w-1 h-1 bg-primary rounded-full"></span>
-          <Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link>
-          <span className="w-1 h-1 bg-primary rounded-full"></span>
-          <Link href="/booking" className="hover:text-primary transition-colors">Book a Table</Link>
-        </nav>
-        <div className="flex gap-4">
-          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={() => window.location.href='/auth/login'}>Sign In</Button>
-        </div>
-      </header>
+    <main ref={containerRef} className="flex min-h-screen flex-col bg-[#0f0a07]">
 
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
@@ -145,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* Reservation Journey (Glass Cards) */}
-      <section className="py-32 relative bg-[#0a0807]">
+      <section className="py-32 relative bg-[#17110c]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center opacity-10" />
         <div className="absolute inset-0 bg-background/90" />
         
@@ -190,21 +172,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-12 relative z-20 bg-[#0a0807]">
-        <div className="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <h1 className="font-heading text-xl tracking-widest text-foreground font-semibold">TABLEFLOW</h1>
-            <p className="text-foreground/50 text-sm mt-2">© 2026 TableFlow Luxury Dining. All rights reserved.</p>
-          </div>
-          <div className="flex gap-8">
-            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Privacy</Link>
-            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Terms</Link>
-            <Link href="#" className="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</Link>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

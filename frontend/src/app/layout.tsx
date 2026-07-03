@@ -4,6 +4,7 @@ import './globals.css';
 import Providers from '@/components/Providers';
 import { cn } from "@/lib/utils";
 import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-heading' });
@@ -20,10 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark", inter.variable, playfair.variable)}>
-      <body className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground font-sans antialiased overflow-x-hidden">
+      <body className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground font-sans antialiased overflow-x-hidden flex flex-col">
         <Providers>
           <Navbar />
-          {children}
+          <div className="flex-1">
+            {children}
+          </div>
+          <Footer />
         </Providers>
       </body>
     </html>
