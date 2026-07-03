@@ -9,7 +9,7 @@ import { User, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Navbar() {
-  const { isAuthenticated, logout, checkAuth } = useAuthStore();
+  const { user, isAuthenticated, logout, checkAuth } = useAuthStore();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -67,18 +67,20 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-5">
-          <Link href="/booking">
-            <Button 
-              variant="outline" 
-              className={`hidden sm:flex transition-all duration-700 text-xs tracking-widest uppercase rounded-none px-6 ${
-                isScrolled 
-                  ? 'border-[#D4AF37]/80 text-[#D4AF37] bg-[#D4AF37]/10 h-10 shadow-[0_0_15px_rgba(212,175,55,0.2)]'
-                  : 'border-[#D4AF37]/40 text-white/90 bg-transparent h-12 hover:bg-[#D4AF37]/20 hover:border-[#D4AF37]'
-              }`}
-            >
-              Book Table
-            </Button>
-          </Link>
+          {user?.role !== 'admin' && (
+            <Link href="/booking">
+              <Button 
+                variant="outline" 
+                className={`hidden sm:flex transition-all duration-700 text-xs tracking-widest uppercase rounded-none px-6 ${
+                  isScrolled 
+                    ? 'border-[#D4AF37]/80 text-[#D4AF37] bg-[#D4AF37]/10 h-10 shadow-[0_0_15px_rgba(212,175,55,0.2)]'
+                    : 'border-[#D4AF37]/40 text-white/90 bg-transparent h-12 hover:bg-[#D4AF37]/20 hover:border-[#D4AF37]'
+                }`}
+              >
+                Book Table
+              </Button>
+            </Link>
+          )}
 
           <div className="h-6 w-[1px] bg-white/10 mx-2 hidden sm:block" />
 
