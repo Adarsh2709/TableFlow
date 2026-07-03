@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/button';
 import { User, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export function Navbar() {
   const { user, isAuthenticated, logout, checkAuth } = useAuthStore();
@@ -41,10 +42,15 @@ export function Navbar() {
       <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className={`border border-[#D4AF37]/50 flex items-center justify-center transition-all duration-700 ${isScrolled ? 'w-8 h-8' : 'w-10 h-10'} group-hover:rotate-45`}>
-            <span className={`font-heading font-bold text-[#D4AF37] transition-all duration-700 ${isScrolled ? 'text-sm' : 'text-lg'} group-hover:-rotate-45`}>TF</span>
+          <div className={`relative overflow-hidden rounded-full border border-[#D4AF37]/40 shadow-[0_0_15px_rgba(212,175,55,0.2)] flex items-center justify-center transition-all duration-700 ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'} group-hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]`}>
+            <Image 
+              src="/logo.png" 
+              alt="TableFlow Logo" 
+              fill 
+              className="object-cover scale-110" 
+            />
           </div>
-          <span className={`font-heading tracking-[0.2em] text-foreground hidden sm:block transition-all duration-700 ${isScrolled ? 'text-lg' : 'text-xl'}`}>TABLEFLOW</span>
+          <span className={`font-heading tracking-[0.2em] text-[#D4AF37] drop-shadow-md hidden sm:block transition-all duration-700 ${isScrolled ? 'text-lg' : 'text-xl'}`}>TABLEFLOW</span>
         </Link>
 
         {/* Navigation Links */}

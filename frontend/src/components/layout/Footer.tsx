@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -7,10 +8,15 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 border border-primary/50 flex items-center justify-center transform rotate-45">
-                <span className="font-heading font-bold text-sm text-primary transform -rotate-45">TF</span>
+              <div className="relative overflow-hidden rounded-full border border-[#D4AF37]/40 shadow-[0_0_15px_rgba(212,175,55,0.2)] flex items-center justify-center w-10 h-10 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300">
+                <Image 
+                  src="/logo.png" 
+                  alt="TableFlow Logo" 
+                  fill 
+                  className="object-cover scale-110" 
+                />
               </div>
-              <h1 className="font-heading text-xl tracking-[0.2em] text-foreground font-semibold">TABLEFLOW</h1>
+              <h1 className="font-heading text-xl tracking-[0.2em] text-[#D4AF37] font-semibold drop-shadow-md">TABLEFLOW</h1>
             </div>
             <p className="text-foreground/50 text-xs font-light max-w-xs">
               Experience the art of culinary perfection. A premium reservation system for luxury dining.
