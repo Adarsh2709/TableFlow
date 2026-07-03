@@ -98,41 +98,43 @@ export function AdminDashboard() {
         subtitle="Command Center for Restaurant Operations."
         category="Operations"
         bgImage="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop"
-      >
-        <button 
-          onClick={fetchAllData}
-          disabled={loading}
-          className="mx-auto flex items-center gap-2 text-sm text-white/90 hover:text-primary transition-colors bg-white/10 px-6 py-3 rounded-full border border-white/20 backdrop-blur-md"
-        >
-          <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Sync Data
-        </button>
-      </PageHero>
+      />
 
       <div className="container relative z-20 mx-auto px-6 max-w-7xl -mt-16 pb-20">
 
         {/* Tab Navigation */}
         <FadeIn delay={0.1} className="mb-8 overflow-x-auto pb-2 scrollbar-hide">
-          <div className="flex gap-2 min-w-max">
-            {[
-              { id: 'overview', label: 'Overview', icon: LayoutGrid },
-              { id: 'reservations', label: 'Reservations', icon: List },
-              { id: 'tables', label: 'Table Management', icon: UtensilsCrossed },
-              { id: 'customers', label: 'Customers', icon: Users },
-              { id: 'analytics', label: 'Analytics', icon: TrendingUp },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as Tab)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  activeTab === tab.id 
-                  ? 'bg-primary/20 text-primary border border-primary/40 shadow-[0_0_15px_rgba(198,156,109,0.2)]' 
-                  : 'bg-black/40 text-foreground/60 border border-white/5 hover:bg-white/5 hover:text-foreground'
-                }`}
-              >
-                <tab.icon size={16} />
-                {tab.label}
-              </button>
-            ))}
+          <div className="flex items-center justify-between min-w-max gap-8 w-full">
+            <div className="flex gap-2">
+              {[
+                { id: 'overview', label: 'Overview', icon: LayoutGrid },
+                { id: 'reservations', label: 'Reservations', icon: List },
+                { id: 'tables', label: 'Table Management', icon: UtensilsCrossed },
+                { id: 'customers', label: 'Customers', icon: Users },
+                { id: 'analytics', label: 'Analytics', icon: TrendingUp },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as Tab)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    activeTab === tab.id 
+                    ? 'bg-primary/20 text-primary border border-primary/40 shadow-[0_0_15px_rgba(198,156,109,0.2)]' 
+                    : 'bg-black/40 text-foreground/60 border border-white/5 hover:bg-white/5 hover:text-foreground'
+                  }`}
+                >
+                  <tab.icon size={16} />
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            <button 
+              onClick={fetchAllData}
+              disabled={loading}
+              className="flex items-center gap-2 text-sm text-foreground/80 hover:text-primary transition-colors bg-black/40 px-6 py-3 rounded-xl border border-white/5 hover:bg-white/5"
+            >
+              <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Sync Data
+            </button>
           </div>
         </FadeIn>
 
