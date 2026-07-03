@@ -66,19 +66,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center relative overflow-hidden py-24">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+    <div className="min-h-screen relative bg-neutral-950">
+      {/* 40vh Hero Section */}
+      <div className="relative h-[40vh] w-full flex items-center justify-center">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
+        </div>
+        
+        <div className="relative z-10 text-center px-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <p className="text-primary uppercase tracking-widest text-xs mb-3 font-semibold drop-shadow-md">Authentication</p>
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-lg mb-4">Member Login</h1>
+            <p className="text-white/70 font-light max-w-md mx-auto">Access your exclusive dining dashboard.</p>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="container relative z-10 max-w-md mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <GlassCard className="p-8 md:p-10 border-t border-white/20 shadow-2xl">
-            <div className="text-center mb-8">
-              <h1 className="font-heading text-3xl mb-2">Member Login</h1>
-              <p className="text-sm text-foreground/60 font-light">Access your exclusive dining dashboard.</p>
-            </div>
+      <div className="container relative z-20 max-w-md mx-auto px-6 -mt-12 pb-24">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
+          <GlassCard className="p-8 md:p-10 border-t border-white/20 shadow-2xl bg-black/60 backdrop-blur-xl">
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               {/* Role Toggle */}

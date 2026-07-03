@@ -73,19 +73,24 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-32 pb-24 relative overflow-hidden flex flex-col items-center justify-center">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+    <div className="min-h-screen relative bg-neutral-950">
+      {/* 40vh Hero Section */}
+      <div className="relative h-[40vh] w-full flex items-center justify-center">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
+        </div>
+        
+        <div className="relative z-10 text-center px-6">
+          <FadeIn>
+            <p className="text-primary uppercase tracking-widest text-xs mb-3 font-semibold drop-shadow-md">Reservation</p>
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-lg mb-4">Reserve Your Table</h1>
+            <p className="text-white/70 font-light max-w-md mx-auto">Join us for an unforgettable dining experience.</p>
+          </FadeIn>
+        </div>
       </div>
 
-      <div className="container relative z-10 max-w-4xl mx-auto px-6">
-        <FadeIn>
-          <div className="text-center mb-12">
-            <h1 className="font-heading text-4xl md:text-5xl mb-4">Reserve Your Table</h1>
-            <p className="text-foreground/60 font-light">Join us for an unforgettable dining experience.</p>
-          </div>
-        </FadeIn>
+      <div className="container relative z-20 max-w-4xl mx-auto px-6 -mt-12 pb-24">
 
         <SlideUp delay={0.2}>
           <GlassCard className="p-8 md:p-12 relative overflow-visible shadow-2xl shadow-primary/5">

@@ -21,49 +21,71 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="flex min-h-screen flex-col bg-background">
+      {/* Elegant Header Navbar */}
+      <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 border-b border-white/10 bg-gradient-to-b from-black/80 to-transparent">
+        <div className="flex items-center gap-2">
+          <div className="w-12 h-12 border border-white flex items-center justify-center">
+            <span className="font-heading font-bold text-xl text-white">TF</span>
+          </div>
+        </div>
+        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest text-white/80 uppercase">
+          <Link href="#menu" className="hover:text-primary transition-colors">Our Menu</Link>
+          <span className="w-1 h-1 bg-primary rounded-full"></span>
+          <Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link>
+          <span className="w-1 h-1 bg-primary rounded-full"></span>
+          <Link href="/booking" className="hover:text-primary transition-colors">Book a Table</Link>
+        </nav>
+        <div className="flex gap-4">
+          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={() => window.location.href='/auth/login'}>Sign In</Button>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop"
-            alt="Luxury Restaurant Interior"
+            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2074&auto=format&fit=crop"
+            alt="Warm Wood Interior"
             fill
             className="object-cover scale-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-10" />
+          <div className="absolute inset-0 bg-black/60 z-10" />
         </motion.div>
 
-        <div className="container relative z-20 mx-auto px-6 lg:px-12 pt-32 text-center flex flex-col items-center">
+        <div className="container relative z-20 mx-auto px-6 text-center flex flex-col items-center">
           <SlideUp duration={1}>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="h-[1px] w-12 bg-primary"></span>
-              <span className="text-primary uppercase tracking-[0.3em] text-sm font-medium">Fine Dining Reimagined</span>
-              <span className="h-[1px] w-12 bg-primary"></span>
-            </div>
+            <p className="font-heading italic text-2xl md:text-3xl text-primary/90 mb-4 tracking-wide drop-shadow-md">
+              Welcome to our restaurant
+            </p>
           </SlideUp>
 
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl max-w-4xl leading-tight mb-8">
-            <StaggerText text="Experience the Art of Culinary Perfection" delay={0.2} />
-          </h1>
+          <SlideUp delay={0.2}>
+            <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-white tracking-widest uppercase mb-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] font-bold">
+              COOK WITH LOVE
+            </h1>
+          </SlideUp>
+
+          <FadeIn delay={0.4}>
+            <div className="flex items-center justify-center gap-4 mb-8 opacity-90">
+              <span className="h-[1px] w-24 bg-gradient-to-r from-transparent to-primary"></span>
+              <svg width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary">
+                <path d="M20 0C20 0 25 10 35 10C25 10 20 20 20 20C20 20 15 10 5 10C15 10 20 0 20 0Z" fill="currentColor"/>
+              </svg>
+              <span className="h-[1px] w-24 bg-gradient-to-l from-transparent to-primary"></span>
+            </div>
+          </FadeIn>
 
           <FadeIn delay={0.6}>
-            <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-12 font-light">
-              Immerse yourself in a world where flavor meets atmosphere. Book your table for an unforgettable evening.
+            <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-12 font-light italic leading-relaxed drop-shadow-md">
+              Immerse yourself in a world where flavor meets atmosphere. Book your table for an unforgettable evening of culinary perfection.
             </p>
           </FadeIn>
 
-          <SlideUp delay={0.8} className="flex flex-col sm:flex-row gap-6">
-            <Link href="/booking">
-              <Button size="lg" className="gold-gradient text-background hover:scale-105 transition-transform duration-300">
-                Reserve a Table <ArrowRight className="ml-2 w-5 h-5 text-background" />
-              </Button>
-            </Link>
-            <Link href="#menu">
-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/5">
-                Explore Menu
-              </Button>
-            </Link>
+          <SlideUp delay={0.8} className="flex flex-col sm:flex-row gap-6 mt-4">
+             <div className="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer group animate-bounce shadow-xl">
+               <ArrowRight className="w-6 h-6 text-white transform rotate-90 group-hover:translate-y-1 transition-transform" />
+             </div>
           </SlideUp>
         </div>
       </section>
