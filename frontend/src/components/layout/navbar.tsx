@@ -63,6 +63,15 @@ export function Navbar() {
               <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100 shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
             </Link>
           ))}
+          {isAuthenticated && (
+            <Link
+              href="/dashboard"
+              className="relative text-[11px] font-bold tracking-[0.25em] text-[#D4AF37] uppercase group overflow-hidden"
+            >
+              <span className="relative z-10 transition-colors duration-300 drop-shadow-md">Dashboard</span>
+              <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D4AF37] scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100 shadow-[0_0_15px_rgba(212,175,55,0.8)]" />
+            </Link>
+          )}
         </nav>
 
         {/* Actions */}
