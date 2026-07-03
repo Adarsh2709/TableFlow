@@ -126,48 +126,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reservation Journey (Glass Cards) */}
-      <section className="py-32 relative bg-[#17110c]">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center opacity-10" />
-        <div className="absolute inset-0 bg-background/90" />
+      {/* Reservation Journey (Custom Cards matching user design) */}
+      <section className="py-32 relative bg-[#0a0705] overflow-hidden">
+        {/* Background Layout matching the image */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-20"></div>
+          
+          {/* Copper texture curve on the right */}
+          <div className="absolute -right-[15%] top-[10%] w-[50%] h-[120%] rounded-[100%] bg-gradient-to-br from-[#4a2e1b] to-[#26150a] shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] border-l border-white/5">
+             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay rounded-[100%]"></div>
+             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#0a0705]/50 to-[#0a0705] rounded-[100%]"></div>
+          </div>
+        </div>
         
         <div className="container relative z-10 mx-auto px-6 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <FadeIn>
-              <h2 className="font-heading text-4xl md:text-5xl mb-6">Your Evening Awaits</h2>
-              <p className="text-foreground/70 text-lg font-light">Seamlessly manage your dining experience through our premium reservation platform.</p>
+              <h2 className="font-heading text-4xl md:text-5xl mb-4 text-white">Your Evening Awaits</h2>
+              <p className="text-primary text-lg">Seamlessly manage your dining experience through our premium reservation platform.</p>
             </FadeIn>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <SlideUp delay={0.1}>
-              <GlassCard glow className="h-full flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                  <UtensilsCrossed className="w-8 h-8 text-primary" />
+              <div className="h-full flex flex-col items-center text-center p-10 rounded-2xl bg-[#1a1410]/90 backdrop-blur-sm border border-primary/40 shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative mb-6">
+                  <div className="absolute top-1/2 left-0 -translate-x-full -translate-y-1/2 mr-2 text-primary text-xs tracking-widest opacity-60">✦</div>
+                  <UtensilsCrossed strokeWidth={1} className="w-12 h-12 text-primary" />
+                  <div className="absolute top-1/2 right-0 translate-x-full -translate-y-1/2 ml-2 text-primary text-xs tracking-widest opacity-60">✦</div>
                 </div>
-                <h4 className="font-heading text-2xl mb-4">Select Your Experience</h4>
-                <p className="text-foreground/60 font-light text-sm">Choose from the main dining room, chef's table, or our private wine cellar.</p>
-              </GlassCard>
+                <h4 className="font-heading text-2xl mb-4 text-white">Select Your Experience</h4>
+                <p className="text-white/70 font-light text-sm">Choose from the main dining room, chef's table, or our private wine cellar.</p>
+              </div>
             </SlideUp>
             
             <SlideUp delay={0.2}>
-              <GlassCard glow className="h-full flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                  <Clock className="w-8 h-8 text-primary" />
-                </div>
-                <h4 className="font-heading text-2xl mb-4">Choose Your Time</h4>
-                <p className="text-foreground/60 font-light text-sm">Real-time availability with our elegant, frictionless booking interface.</p>
-              </GlassCard>
+              <div className="h-full flex flex-col items-center text-center p-10 rounded-2xl bg-[#1a1410]/90 backdrop-blur-sm border border-primary/40 shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <Clock strokeWidth={1} className="w-12 h-12 text-primary mb-6" />
+                <h4 className="font-heading text-2xl mb-4 text-white">Choose Your Time</h4>
+                <p className="text-white/70 font-light text-sm">Real-time availability with our elegant, frictionless booking interface.</p>
+              </div>
             </SlideUp>
             
             <SlideUp delay={0.3}>
-              <GlassCard glow className="h-full flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                  <Star className="w-8 h-8 text-primary" />
-                </div>
-                <h4 className="font-heading text-2xl mb-4">Enjoy the Moment</h4>
-                <p className="text-foreground/60 font-light text-sm">Arrive to a personalized greeting and let our staff handle the rest.</p>
-              </GlassCard>
+              <div className="h-full flex flex-col items-center text-center p-10 rounded-2xl bg-[#1a1410]/90 backdrop-blur-sm border border-primary/40 shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <Star strokeWidth={1} className="w-12 h-12 text-primary mb-6" />
+                <h4 className="font-heading text-2xl mb-4 text-white">Enjoy the Moment</h4>
+                <p className="text-white/70 font-light text-sm">Arrive to a personalized greeting and let our staff handle the rest.</p>
+              </div>
             </SlideUp>
           </div>
         </div>
