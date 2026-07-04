@@ -30,7 +30,7 @@ const options = {
       },
     ],
   },
-  apis: ['./server/src/routes/*.js'], // Points to the routes folder where Swagger JSDoc comments will be
+  apis: ['./src/routes/*.js'], // Points to the routes folder where Swagger JSDoc comments will be
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
