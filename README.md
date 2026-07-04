@@ -167,3 +167,12 @@ The reservation engine uses a deterministic algorithm protected by MongoDB Trans
 - **Email/SMS Notifications**: Hook into SendGrid or Twilio to send confirmation and reminder notifications.
 - **Limitation**: The current authentication relies on `localStorage` which is vulnerable to XSS. A future improvement would be migrating to `httpOnly` secure cookies.
 - **Limitation**: Time slots are fixed and hardcoded on the frontend. A future admin settings panel could make these dynamic.
+
+---
+
+## Appendix
+
+- **Live Demo URL:** https://table-flow-gilt.vercel.app/
+- **Backend API:** https://tableflow-ovng.onrender.com/api
+- **Swagger URL:** https://tableflow-ovng.onrender.com/api/docs
+- **GitHub Repository:** https://github.com/Adarsh2709/TableFlow
