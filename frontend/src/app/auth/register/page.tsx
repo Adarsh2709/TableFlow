@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { GlassCard } from '@/components/ui/glass-card';
@@ -33,6 +33,8 @@ export default function RegisterPage() {
   const router = useRouter();
   const { login } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -146,25 +148,45 @@ export default function RegisterPage() {
 
               <div>
                 <label className="text-xs uppercase tracking-widest text-foreground/70 mb-2 block">Password</label>
-                <input
-                  type="password"
-                  {...register('password')}
-                  disabled={isLoading}
-                  className={`w-full bg-black/20 border ${errors.password ? 'border-destructive/50 focus:border-destructive' : 'border-white/10 focus:border-primary'} rounded-lg px-4 py-3 text-foreground placeholder:text-foreground/30 focus:outline-none transition-colors`}
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    {...register('password')}
+                    disabled={isLoading}
+                    className={`w-full bg-black/20 border ${errors.password ? 'border-destructive/50 focus:border-destructive' : 'border-white/10 focus:border-primary'} rounded-lg px-4 py-3 pr-12 text-foreground placeholder:text-foreground/30 focus:outline-none transition-colors`}
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground/70 transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {errors.password && <p className="text-destructive text-xs mt-1">{errors.password.message}</p>}
               </div>
               
               <div>
                 <label className="text-xs uppercase tracking-widest text-foreground/70 mb-2 block">Confirm Password</label>
-                <input
-                  type="password"
-                  {...register('confirmPassword')}
-                  disabled={isLoading}
-                  className={`w-full bg-black/20 border ${errors.confirmPassword ? 'border-destructive/50 focus:border-destructive' : 'border-white/10 focus:border-primary'} rounded-lg px-4 py-3 text-foreground placeholder:text-foreground/30 focus:outline-none transition-colors`}
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    {...register('confirmPassword')}
+                    disabled={isLoading}
+                    className={`w-full bg-black/20 border ${errors.confirmPassword ? 'border-destructive/50 focus:border-destructive' : 'border-white/10 focus:border-primary'} rounded-lg px-4 py-3 pr-12 text-foreground placeholder:text-foreground/30 focus:outline-none transition-colors`}
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground/70 transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {errors.confirmPassword && <p className="text-destructive text-xs mt-1">{errors.confirmPassword.message}</p>}
               </div>
 
