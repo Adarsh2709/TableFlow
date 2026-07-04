@@ -10,7 +10,11 @@ dotenv.config();
 
 const connectToDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://jhaadarsh709_db_user:otmEVMI3plL6Qw6U@tableflow.mkmcflh.mongodb.net/tableflow?appName=TableFlow');
+    if (!process.env.MONGODB_URI) {
+      logger.error('MONGODB_URI environment variable is not set.');
+      process.exit(1);
+    }
+    await mongoose.connect(process.env.MONGODB_URI);
     logger.info('Connected to MongoDB for seeding');
   } catch (error) {
     logger.error('Error connecting to DB:', error);
