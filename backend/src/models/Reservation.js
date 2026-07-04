@@ -39,7 +39,7 @@ const reservationSchema = new mongoose.Schema(
 
 // Indexes for strict allocation constraints and queries
 // A table cannot have two active (PENDING/CONFIRMED) reservations at the same time
-reservationSchema.index({ table: 1, reservationDate: 1, timeSlot: 1 });
+reservationSchema.index({ table: 1, reservationDate: 1, timeSlot: 1 }, { unique: true });
 reservationSchema.index({ customer: 1, reservationDate: 1 }); // For querying user's reservations
 reservationSchema.index({ status: 1 });
 
