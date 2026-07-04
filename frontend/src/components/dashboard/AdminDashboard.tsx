@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { FadeIn, SlideUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
-import { Users, Calendar as CalendarIcon, DollarSign, TrendingUp, Loader2, RefreshCw, LayoutGrid, List, UtensilsCrossed, Settings, UserCircle, Search, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Users, Calendar as CalendarIcon, IndianRupee, TrendingUp, Loader2, RefreshCw, LayoutGrid, List, UtensilsCrossed, Settings, UserCircle, Search, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { PageHero } from '@/components/ui/page-hero';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
@@ -162,9 +162,9 @@ export function AdminDashboard() {
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <p className="text-xs text-foreground/50 uppercase tracking-widest mb-1">Total Revenue</p>
-                          <h3 className="text-3xl font-heading text-foreground group-hover:text-primary transition-colors">${overview?.estimatedRevenue?.toLocaleString() || '0'}</h3>
+                          <h3 className="text-3xl font-heading text-foreground group-hover:text-primary transition-colors">₹{overview?.estimatedRevenue?.toLocaleString() || '0'}</h3>
                         </div>
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary"><DollarSign size={20} /></div>
+                        <div className="p-3 bg-primary/10 rounded-xl text-primary"><IndianRupee size={20} /></div>
                       </div>
                       <p className="text-xs text-primary/80 flex items-center gap-1"><TrendingUp size={12} /> Estimated based on covers</p>
                     </GlassCard>
