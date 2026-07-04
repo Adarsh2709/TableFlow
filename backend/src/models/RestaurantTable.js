@@ -21,6 +21,7 @@ const restaurantTableSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+restaurantTableSchema.index({ capacity: 1, isActive: 1 });
 
 const RestaurantTable = mongoose.model('RestaurantTable', restaurantTableSchema);
 export default RestaurantTable;
